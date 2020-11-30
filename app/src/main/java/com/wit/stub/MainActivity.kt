@@ -4,7 +4,9 @@ import android.accounts.Account
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.wit.stub.fragments.AccountFragment
 import com.wit.stub.fragments.HomeFragment
 import com.wit.stub.fragments.SettingsFragment
@@ -22,7 +24,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val settings = SettingsFragment()
 
         setMainFragment(home)
-        bottom_nav.setOnNavigationItemSelectedListener {
+
+        //Listener for bottom nav bar
+        top_nav.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home -> setMainFragment(home)
                 R.id.settings -> setMainFragment(settings)
@@ -32,6 +36,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Set a main fragment by replacing what is in the wrapper Frame Layout.
+     * Logs this event in logcat
+     */
     private fun setMainFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.wrapper, fragment)
