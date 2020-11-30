@@ -9,8 +9,10 @@ import com.wit.stub.fragments.AccountFragment
 import com.wit.stub.fragments.HomeFragment
 import com.wit.stub.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private fun setMainFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.wrapper, fragment)
+            info("Switched to $fragment" )
             commit()
         }
 }
