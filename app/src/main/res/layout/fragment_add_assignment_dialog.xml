@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
         android:fontFamily="sans-serif"
-        android:hint="@string/assignmnet_title"
+        android:hint="@string/assignment_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +53,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <DatePicker
-        android:id="@+id/submissionDate"
-        android:layout_width="336dp"
-        android:layout_height="393dp"
-        android:layout_marginTop="280dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <DatePicker-->
+<!--        android:id="@+id/submissionDate"-->
+<!--        android:layout_width="336dp"-->
+<!--        android:layout_height="393dp"-->
+<!--        android:layout_marginTop="280dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

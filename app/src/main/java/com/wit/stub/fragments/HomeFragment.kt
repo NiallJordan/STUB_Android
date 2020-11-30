@@ -6,10 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.get
 import com.google.android.material.snackbar.Snackbar
 import com.wit.stub.R
+import com.wit.stub.models.AssignmentModel
+import kotlinx.android.synthetic.main.fragment_add_assignment_dialog.*
+import kotlinx.android.synthetic.main.fragment_add_assignment_dialog.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +32,9 @@ class HomeFragment : Fragment(), AnkoLogger {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    var assignment = AssignmentModel()
+    val assignments = ArrayList<AssignmentModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +58,22 @@ class HomeFragment : Fragment(), AnkoLogger {
             val alert = AlertDialog.Builder(activity)
             alert.setView(R.layout.fragment_add_assignment_dialog)
             alert.setPositiveButton("Submit"){dialog,positiveButton ->
-
+//                assignment.module = module.text.toString()
+//                assignment.assignmentTitle = assignmentTitle.text.toString()
+//                assignment.weight = Integer.parseInt(weighting.text.toString())
+//                assignment.submissionLink = submissionLink.text.toString()
+//                if (assignment.assignmentTitle.isNotEmpty()) {
+//                   assignments.add(assignment)
+//                }
+//                else {
+//                    info("Wrong")
+//                }
             }
             alert.setNegativeButton("Cancel"){dialog, negativeButton->
 
             }
             alert.show()
         }
-
         return view
     }
 

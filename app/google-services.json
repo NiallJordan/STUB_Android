@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "500133114784",
+    "firebase_url": "https://stub-c42f2.firebaseio.com",
+    "project_id": "stub-c42f2",
+    "storage_bucket": "stub-c42f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500133114784:android:2dd02992cd9c0c1d3eaac5",
+        "android_client_info": {
+          "package_name": "com.wit.stub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500133114784-7a68e4shh3e9vsk2113o1em4r1fbc68t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCP0MjDfu2XcWa8RhjFqb0YTnFvYTbPtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500133114784-7a68e4shh3e9vsk2113o1em4r1fbc68t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

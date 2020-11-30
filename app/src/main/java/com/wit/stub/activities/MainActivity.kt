@@ -1,12 +1,9 @@
-package com.wit.stub
+package com.wit.stub.activities
 
-import android.accounts.Account
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
-import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
+import com.wit.stub.R
 import com.wit.stub.fragments.AccountFragment
 import com.wit.stub.fragments.HomeFragment
 import com.wit.stub.fragments.SettingsFragment
