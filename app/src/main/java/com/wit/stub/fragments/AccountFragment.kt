@@ -30,7 +30,7 @@ class AccountFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-   // lateinit var mGoogleSignInClient: GoogleSignInClient
+    // lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,27 +44,6 @@ class AccountFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_account, container, false)
-
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//
-//        mGoogleSignInClient= activity?.let { GoogleSignIn.getClient(it, gso) }!!
-
-
-
-
-        var logout : View = view.findViewById(R.id.logout)
-        logout.setOnClickListener{view->
-            Firebase.auth.signOut()
-            val intent = Intent(activity, LoginScreen::class.java)
-            startActivity(intent)
-//            mGoogleSignInClient.signOut().addOnCompleteListener {
-//                val intent = Intent(activity, LoginScreen::class.java)
-//                startActivity(intent)
-//            }
-        }
         return view
     }
 
@@ -79,11 +58,11 @@ class AccountFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic fun newInstance(param1: String, param2: String) =
-                AccountFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+            AccountFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
     }
 }

@@ -60,7 +60,6 @@ class EmailLogin : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(baseContext, "Authentication failed. Email or password is wrong.", Toast.LENGTH_SHORT).show()
                     updateUI(null)
-
                 }
             }
     }
