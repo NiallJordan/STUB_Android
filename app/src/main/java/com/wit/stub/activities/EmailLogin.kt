@@ -20,83 +20,42 @@ class EmailLogin : AppCompatActivity() {
         setContentView(R.layout.activity_email_login)
         auth = FirebaseAuth.getInstance()
 
-        register.setOnClickListener{
-            createUser()
-        }
-
         login.setOnClickListener {
             loginUser()
         }
-    }
-
-    private fun createUser(){
-        if(email.text.toString().isEmpty()){
-            email.error = "Please enter email"
-            email.requestFocus()
-            return
+        registerTextView.setOnClickListener{
+            val intent = Intent(this, EmailRegister::class.java)
+            startActivity(intent)
+            finish()
         }
 
-        if(password.text.toString().isEmpty()){
-            password.error = "Please enter password"
-            password.requestFocus()
-            return
-        }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
-            email.error = "Please enter a valid email"
-            email.requestFocus()
-            return
-        }
-
-        auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    user!!.sendEmailVerification()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-                        }
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
-            }
     }
 
     private fun loginUser(){
-        if(email.text.toString().isEmpty()){
-            email.error = "Please enter email"
-            email.requestFocus()
+        if(emailInput.text.toString().isEmpty()){
+            emailInput.error = "Please enter email"
+            emailInput.requestFocus()
             return
         }
 
-        if(password.text.toString().isEmpty()){
-            password.error = "Please enter password"
-            password.requestFocus()
+        if(passwordInput.text.toString().isEmpty()){
+            passwordInput.error = "Please enter password"
+            passwordInput.requestFocus()
             return
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
-            email.error = "Please enter a valid email"
-            email.requestFocus()
+        if(!Patterns.EMAIL_ADDRESS.matcher(emailInput.text.toString()).matches()){
+            emailInput.error = "Please enter a valid email"
+            emailInput.requestFocus()
             return
         }
 
-        auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
+        auth.signInWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
                     updateUI(user)
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(baseContext, "Authentication failed. Email or password is wrong.", Toast.LENGTH_SHORT).show()
@@ -113,16 +72,18 @@ class EmailLogin : AppCompatActivity() {
         updateUI(currentUser)
     }
 
-    fun updateUI(currentUser: FirebaseUser?){
-        if(currentUser != null){
-            if (currentUser.isEmailVerified) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }else{
-                Toast.makeText(this,"Please verify email", Toast.LENGTH_SHORT).show()
-            }
-        }else{
-            Toast.makeText(baseContext,"Login Failed.",Toast.LENGTH_SHORT).show()
+    private fun updateUI(currentUser: FirebaseUser?){
+        if(currentUser != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
+//            if (currentUser.isEmailVerified)
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
+//        }else if (currentUser!=null && !currentUser.isEmailVerified ){
+//            Toast.makeText(this, "Please Verify Email", Toast.LENGTH_SHORT).show()
+//            startActivity(Intent(this, EmailLogin::class.java))
+//            finish()
+//        }
     }
 }

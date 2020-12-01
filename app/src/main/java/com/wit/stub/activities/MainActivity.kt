@@ -1,17 +1,25 @@
 package com.wit.stub.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.wit.stub.R
 import com.wit.stub.fragments.AccountFragment
 import com.wit.stub.fragments.HomeFragment
 import com.wit.stub.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_account.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
