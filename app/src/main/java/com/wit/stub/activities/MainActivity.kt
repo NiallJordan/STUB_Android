@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.wit.stub.R
 import com.wit.stub.fragments.AccountFragment
+import com.wit.stub.fragments.AddAssignmentFragment
 import com.wit.stub.fragments.HomeFragment
 import com.wit.stub.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,15 +28,18 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val home = HomeFragment()
         val account = AccountFragment()
         val settings = SettingsFragment()
+        val add = AddAssignmentFragment()
 
         setMainFragment(home)
 
         //Listener for bottom nav bar
         top_nav.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.home -> setMainFragment(home)
-                R.id.settings -> setMainFragment(settings)
                 R.id.account -> setMainFragment(account)
+                R.id.home -> setMainFragment(home)
+                R.id.addAssignment -> setMainFragment(add)
+                R.id.settings -> setMainFragment(settings)
+
             }
             true
         }
