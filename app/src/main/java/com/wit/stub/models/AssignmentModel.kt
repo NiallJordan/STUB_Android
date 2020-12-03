@@ -1,12 +1,16 @@
 package com.wit.stub.models
 
-import java.util.*
+class AssignmentModel {
 
-data class AssignmentModel(
-    var module: String ="",
-    var assignmentTitle: String = "",
-    var weight: Int=0,
-    var submissionLink: String ="",
-   // var submissionDate: Calendar = Calendar.getInstance()
-)
+    var module: String? = ""
+    var assignmentTitle: String? = ""
+    var weight: Int? = 0
+    var submissionLink: String? = ""
+    var email: String? = ""
+    // var submissionDate: Calendar = Calendar.getInstance()
+
+    companion object Factory{
+        fun create(): AssignmentModel = AssignmentModel()
+    }
+}
 

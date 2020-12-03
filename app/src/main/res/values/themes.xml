@@ -18,4 +18,10 @@
         <item name="colorPrimaryDark">@color/purple_700</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
+    <style name="Theme.STUB.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.STUB.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.STUB.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

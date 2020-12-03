@@ -7,16 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.get
-import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.wit.stub.R
 import com.wit.stub.models.AssignmentModel
+import kotlinx.android.synthetic.main.activity_email_register.*
+import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_add_assignment_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_assignment_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.*
-import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,19 +31,19 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment(), AnkoLogger {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    var assignment = AssignmentModel()
-    val assignments = ArrayList<AssignmentModel>()
+    private lateinit var auth : FirebaseAuth
+    private var dbReference: DatabaseReference? =null
+    private var dbReferenceAssignment: DatabaseReference? =null
+    private var db: FirebaseDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseDatabase.getInstance()
+        dbReference = db?.reference!!.child("account")
+        dbReferenceAssignment = db?.reference!!.child("assignments")
+
+        //loadAssignments()
     }
 
     override fun onCreateView(
@@ -58,16 +60,7 @@ class HomeFragment : Fragment(), AnkoLogger {
             val alert = AlertDialog.Builder(activity)
             alert.setView(R.layout.fragment_add_assignment_dialog)
             alert.setPositiveButton("Submit"){dialog,positiveButton ->
-//                assignment.module = module.text.toString()
-//                assignment.assignmentTitle = assignmentTitle.text.toString()
-//                assignment.weight = Integer.parseInt(weighting.text.toString())
-//                assignment.submissionLink = submissionLink.text.toString()
-//                if (assignment.assignmentTitle.isNotEmpty()) {
-//                   assignments.add(assignment)
-//                }
-//                else {
-//                    info("Wrong")
-//                }
+
             }
             alert.setNegativeButton("Cancel"){dialog, negativeButton->
 
@@ -75,6 +68,30 @@ class HomeFragment : Fragment(), AnkoLogger {
             alert.show()
         }
         return view
+    }
+
+    private fun addNewAssignment(){
+
+    }
+
+    private fun loadAssignments(){
+        val currentUser = auth.currentUser
+        val cuReference = dbReference?.child(currentUser?.uid!!)
+        val cuReferenceAssignment = dbReference?.child(currentUser?.uid!!)
+
+
+
+        cuReferenceAssignment?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                moduleTextView.text = snapshot.child("module").value.toString()
+                assignTitleTextView.text =snapshot.child("assignment_title").value.toString()
+                weightingTextView.text = snapshot.child("weighting").value.toString()
+                submissionLinkTextView.text = snapshot.child("module").value.toString()
+                emailText.text = currentUser?.email
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 
 
