@@ -74,10 +74,9 @@ class AddAssignmentFragment : Fragment() {
             submissionLinkField.requestFocus()
 
         }
-
         // User
         val currentUser = auth.currentUser
-        val key = assignmentReference?.push()?.key
+        val id = assignmentReference?.push()?.key
 
         var userID = currentUser?.uid!!
         var module = moduleField.text.toString()
@@ -85,9 +84,11 @@ class AddAssignmentFragment : Fragment() {
         var weight = Integer.parseInt(weightingField.text.toString())
         var submissionLink = submissionLinkField.text.toString()
 
-        val assignment = AssignmentModel(module,title,weight,submissionLink,userID)
-
-        assignmentReference?.child(key!!)?.setValue(assignment)
+        //Send data to database
+        if(module.isNotEmpty() && title.isNotEmpty() && submissionLink.isNotEmpty()) {
+            val assignment = AssignmentModel(module, title, weight, submissionLink, userID)
+            assignmentReference?.child(id!!)?.setValue(assignment)
+        }
     }
 
     companion object {

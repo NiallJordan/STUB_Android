@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wit.stub.R
+import com.wit.stub.models.AssignmentModel
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.*
 
@@ -36,7 +38,7 @@ class HomeFragment : Fragment(), AnkoLogger {
         accountReference = db?.reference!!.child("account")
         assignmentReference = db?.reference!!.child("assignments")?.child(auth.currentUser?.uid!!)
 
-        //loadAssignments()
+        loadAssignments()
     }
 
     override fun onCreateView(
@@ -49,25 +51,24 @@ class HomeFragment : Fragment(), AnkoLogger {
         return view
     }
 
-//    private fun loadAssignments(){
-//        val currentUser = auth.currentUser
-//        val cuReference = dbReference?.child(currentUser?.uid!!)
-//        val cuReferenceAssignment = dbReference?.child(currentUser?.uid!!)
+    private fun loadAssignments(){
+
+        assignmentReference?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var list = ArrayList<AssignmentModel>()
+                for(data in snapshot.children){
+                    val assignmentModel = data.getValue(AssignmentModel::class.java)
+                    list.add(assignmentModel as AssignmentModel)
+                }
+
+                val adapter = AssignmentRecyclerAdapter(list)
+                recycler_view.adapter = adapter
 //
-//
-//
-//        cuReferenceAssignment?.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                moduleTextView.text = snapshot.child("module").value.toString()
-//                assignTitleTextView.text =snapshot.child("assignment_title").value.toString()
-//                weightingTextView.text = snapshot.child("weighting").value.toString()
-//                submissionLinkTextView.text = snapshot.child("module").value.toString()
-//                emailText.text = currentUser?.email
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//            }
-//        })
-//    }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
 
 
     companion object {
