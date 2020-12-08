@@ -24,23 +24,6 @@ class SettingsFragment : Fragment() {
     ): View? {
         var view: View = inflater.inflate(R.layout.fragment_settings, container, false)
 
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//
-//        mGoogleSignInClient= activity?.let { GoogleSignIn.getClient(it, gso) }!!
-
-        var logout : View = view.findViewById(R.id.logoutButton)
-        logout.setOnClickListener{view->
-            Firebase.auth.signOut()
-            val intent = Intent(activity, LoginScreen::class.java)
-            startActivity(intent)
-//            mGoogleSignInClient.signOut().addOnCompleteListener {
-//                val intent = Intent(activity, LoginScreen::class.java)
-//                startActivity(intent)
-//            }
-        }
         return view
     }
 }

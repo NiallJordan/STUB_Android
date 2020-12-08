@@ -19,24 +19,22 @@ class AddAssignmentFragment : Fragment() {
     private var db: FirebaseDatabase? = null
     private var accountReference: DatabaseReference? =null
     private var assignmentReference: DatabaseReference? =null
-    var list = ArrayList<AssignmentModel>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         accountReference = db?.reference!!.child("account")
-        assignmentReference = db?.reference!!.child("assignments")?.child(auth.currentUser?.uid!!)
+        assignmentReference = db?.reference!!.child("assignments").child(auth.currentUser?.uid!!)
     }
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        var view: View= inflater.inflate(R.layout.fragment_add_assignment, container, false)
+        val view: View= inflater.inflate(R.layout.fragment_add_assignment, container, false)
         val submit: View = view.findViewById(R.id.submitButton)
         submit.setOnClickListener {
             addNewAssignment()
@@ -70,11 +68,11 @@ class AddAssignmentFragment : Fragment() {
         val currentUser = auth.currentUser
         val id = assignmentReference?.push()?.key
 
-        var userID = currentUser?.uid!!
-        var module = moduleField.text.toString()
-        var title = assignmentTitleField.text.toString()
-        var weight = Integer.parseInt(weightingField.text.toString())
-        var submissionLink = submissionLinkField.text.toString()
+        val userID = currentUser?.uid!!
+        val module = moduleField.text.toString()
+        val title = assignmentTitleField.text.toString()
+        val weight = Integer.parseInt(weightingField.text.toString())
+        val submissionLink = submissionLinkField.text.toString()
 
         //Send data to database
         if(module.isNotEmpty() && title.isNotEmpty() && weight.toString().isNotEmpty() && submissionLink.isNotEmpty()) {

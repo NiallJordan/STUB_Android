@@ -1,76 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".fragments.ViewAssignmentActivity">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
-            <EditText
-                android:id="@+id/update_assignment_module"
-                android:layout_width="208dp"
-                android:layout_height="61dp"
-                android:hint="@string/module"
-                android:layout_centerHorizontal="true"
-                android:autofillHints="@string/module"
-                android:inputType="text"/>
-            <EditText
-                android:id="@+id/update_assignment_title"
-                android:layout_width="208dp"
-                android:layout_height="61dp"
-                android:hint="@string/assignment_title"
-                android:layout_below="@id/update_assignment_module"
-                android:layout_centerHorizontal="true"
-                android:autofillHints="@string/assignment_title"
-                android:inputType="text"/>
-            <EditText
-                android:id="@+id/update_assignment_weight"
-                android:layout_width="208dp"
-                android:layout_height="61dp"
-                android:hint="@string/weighting"
-                android:layout_below="@id/update_assignment_title"
-                android:layout_centerHorizontal="true"
-                android:autofillHints="@string/weighting"
-                android:inputType="number"/>
-            <EditText
-                android:id="@+id/update_assignment_submissionLink"
-                android:layout_width="208dp"
-                android:layout_height="61dp"
-                android:hint="@string/subLink"
-                android:layout_below="@id/update_assignment_weight"
-                android:layout_centerHorizontal="true"
-                android:autofillHints="@string/subLink"
-                android:inputType="text"/>
-        </RelativeLayout>
-<!--        <ImageButton-->
-<!--            android:id="@+id/update_assignment_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_toLeftOf="@id/delete_assignment_button"-->
-<!--            android:layout_marginBottom="21dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:contentDescription="@string/update"-->
-<!--            android:padding="5dp"-->
-<!--            android:src="@drawable/ic_update" />-->
-<!--        <ImageButton-->
-<!--            android:id="@+id/delete_assignment_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:layout_marginRight="15dp"-->
-<!--            android:layout_marginBottom="21dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:contentDescription="Delete"-->
-<!--            android:padding="5dp"-->
-<!--            android:src="@drawable/ic_baseline_delete_24" />-->
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

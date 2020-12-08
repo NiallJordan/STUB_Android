@@ -32,11 +32,10 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         var module: TextView = itemView.moduleTextView
         var title: TextView = itemView.assignTitleTextView
         //var submissionLink: TextView = itemView.submissionLinkTextView
-        var assignmentID: TextView = itemView.assignmentIDTextView
 
         init{
             assignmentFilterList = assignmentList
-            itemView.setOnClickListener{
+            itemView.setOnClickListener(){
 //                val intent = Intent(itemView.context, ViewAssignmentActivity::class.java)
 //                intent.putExtra("module", module.text)
 //                intent.putExtra("title", title.text)
@@ -53,7 +52,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         accountReference = db?.reference!!.child("account")
-        assignmentReference = db?.reference!!.child("assignments")?.child(auth.currentUser?.uid!!)
+        assignmentReference = db?.reference!!.child("assignments").child(auth.currentUser?.uid!!)
 
         return ViewHolder(view)
     }
@@ -63,8 +62,6 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         viewHolder.title.text = assignmentList[position].assignmentTitle
 //        viewHolder.weight.text = assignmentList[position].weight.toString()
 //        viewHolder.submissionLink.text = assignmentList[position].submissionLink
-        viewHolder.assignmentID.text = assignmentList[position].assignmentID.toString()
-
     }
 
     override fun getItemCount(): Int {
@@ -105,7 +102,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
     fun updateAssignment(itemView: View,assignment:AssignmentModel){
         val dialog = AlertDialog.Builder(itemView.context)
         val inflater = LayoutInflater.from(itemView.context)
-        val view = inflater.inflate(R.layout.activity_view_assignment,null)
+        val view = inflater.inflate(R.layout.activity_update_assignment,null)
 
         val updateModuleField = view.findViewById<EditText>(R.id.update_assignment_module)
         val updateTitleField = view.findViewById<EditText>(R.id.update_assignment_title)
@@ -120,7 +117,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
 
         dialog.setView(view)
         dialog.setPositiveButton("Update"
-        ) { dialog, postive ->
+        ) { m, postive ->
 
             val currentUser = auth.currentUser
             val dbAssignment = FirebaseDatabase.getInstance().getReference("assignments").child(auth.currentUser?.uid!!)

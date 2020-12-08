@@ -51,30 +51,6 @@ class HomeFragment : Fragment(), AnkoLogger {
         return view
     }
 
-    fun updateAssignment(){
-        val dialog = AlertDialog.Builder(context)
-        val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.activity_view_assignment,null)
-
-        val module = view.findViewById<EditText>(R.id.update_assignment_module)
-        val title = view.findViewById<EditText>(R.id.update_assignment_title)
-        val weight = view.findViewById<EditText>(R.id.update_assignment_weight)
-        val subLink = view.findViewById<EditText>(R.id.update_assignment_submissionLink)
-
-        dialog.setView(view)
-        dialog.setPositiveButton("Update"
-        ) { dialog, postive ->
-
-        }
-
-        dialog.setNegativeButton("Update"
-        ) { dialog, negative ->
-            TODO("Not yet implemented")
-        }
-        val alert = dialog.create()
-        alert.show()
-    }
-
     private fun search(){
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

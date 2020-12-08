@@ -42,10 +42,19 @@ class AccountFragment : Fragment() {
         loadAccountInfo()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_account, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_account, container, false)
+
+        val logout : View = view.findViewById(R.id.logoutButton)
+        logout.setOnClickListener { view ->
+            Firebase.auth.signOut()
+            val intent = Intent(activity, LoginScreen::class.java)
+            startActivity(intent)
+        }
         return view
     }
 
