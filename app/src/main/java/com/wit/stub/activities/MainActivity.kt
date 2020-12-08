@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 R.id.home -> setMainFragment(home)
                 R.id.addAssignment -> setMainFragment(add)
                 R.id.settings -> setMainFragment(settings)
-
             }
             true
         }

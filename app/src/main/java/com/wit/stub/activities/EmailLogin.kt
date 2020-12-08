@@ -11,18 +11,28 @@ import com.google.firebase.auth.FirebaseUser
 import com.wit.stub.R
 import kotlinx.android.synthetic.main.activity_email_login.*
 
+/**
+ * Login Activity for Email Login.
+ */
 class EmailLogin : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //set view as login
         setContentView(R.layout.activity_email_login)
+
+        //get firebase login
         auth = FirebaseAuth.getInstance()
 
+        //Setting on click listener to login button
         login.setOnClickListener {
             loginUser()
         }
+
+        //set onClickListener to register text view, switch to the email register activity
         registerTextView.setOnClickListener{
             val intent = Intent(this, EmailRegister::class.java)
             startActivity(intent)
