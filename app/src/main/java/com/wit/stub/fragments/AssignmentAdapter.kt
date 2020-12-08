@@ -27,6 +27,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
     private var db: FirebaseDatabase? = null
     private var accountReference: DatabaseReference? =null
     private var assignmentReference: DatabaseReference? =null
+    private lateinit var assignment:AssignmentModel
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var module: TextView = itemView.moduleTextView
@@ -35,9 +36,13 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
 
         init{
             assignmentFilterList = assignmentList
-            itemView.setOnClickListener(){
-                val assignment = assignmentList[adapterPosition]
-                //updateAssignment(itemView, assignment)
+            itemView.setOnClickListener() {
+                assignment = assignmentList[adapterPosition]
+                updateAssignment(itemView, assignment)
+            }
+            var deleteButton = itemView.delete_assignment_button
+            deleteButton.setOnClickListener{
+                assignment = assignmentList[adapterPosition]
                 deleteAssignment(itemView,assignment)
             }
 
@@ -102,7 +107,6 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         builder.setMessage("Are you sure you want to delete this assignment?")
 
         builder.setPositiveButton("Delete"){ dialog, postive ->
-            val currentUser = auth.currentUser
             val dbAssignment = FirebaseDatabase.getInstance().getReference("assignments").child(auth.currentUser?.uid!!)
             val id = assignment.assignmentID
 
@@ -118,7 +122,8 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         alert.show()
         notifyDataSetChanged()
     }
-    private fun updateAssignment(itemView: View,assignment:AssignmentModel){
+
+     fun updateAssignment(itemView: View,assignment:AssignmentModel){
         val builder = AlertDialog.Builder(itemView.context)
         val inflater = LayoutInflater.from(itemView.context)
         val view = inflater.inflate(R.layout.activity_update_assignment,null)
@@ -169,7 +174,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
                 return@setPositiveButton
             }
 
-            val assignment = AssignmentModel(id,updatedModule,updatedTitle,updatedWeight,updatedSubLink,assignment.userID)
+            val assignment = AssignmentModel(id,updatedModule,updatedTitle,updatedWeight,updatedSubLink,userID)
             dbAssignment.child(id!!).setValue(assignment)
             info("Updating Assignment:  ${assignment.assignmentID}")
         }
@@ -183,3 +188,4 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         alert.show()
     }
 }
+

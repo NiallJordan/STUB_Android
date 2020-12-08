@@ -46,18 +46,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-<!--            <TextView-->
-<!--                android:id="@+id/assignmentIDTextView"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="@string/assignment_id"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:inputType="number"-->
-<!--                android:textSize="1dp"-->
-<!--                />-->
+            <ImageButton
+                android:id="@+id/delete_assignment_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:contentDescription="Delete"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_delete_24" />
         </RelativeLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
