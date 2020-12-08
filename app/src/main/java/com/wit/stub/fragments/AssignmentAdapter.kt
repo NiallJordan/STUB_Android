@@ -1,13 +1,11 @@
 package com.wit.stub.fragments
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -16,10 +14,12 @@ import com.wit.stub.R
 import com.wit.stub.models.AssignmentModel
 import kotlinx.android.synthetic.main.fragment_add_assignment.*
 import kotlinx.android.synthetic.main.fragment_cardview.view.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList<AssignmentModel>): RecyclerView.Adapter<AssignmentAdapter.ViewHolder>(), Filterable{
+class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList<AssignmentModel>): RecyclerView.Adapter<AssignmentAdapter.ViewHolder>(), Filterable, AnkoLogger{
 
     //Array list for filtered results
     var assignmentFilterList = ArrayList<AssignmentModel>()
@@ -36,14 +36,11 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         init{
             assignmentFilterList = assignmentList
             itemView.setOnClickListener(){
-//                val intent = Intent(itemView.context, ViewAssignmentActivity::class.java)
-//                intent.putExtra("module", module.text)
-//                intent.putExtra("title", title.text)
-//                intent.putExtra("assignmentID", assignmentID.text)
-//                itemView.context.startActivity(intent)
                 val assignment = assignmentList[adapterPosition]
-                updateAssignment(itemView,assignment)
+                //updateAssignment(itemView, assignment)
+                deleteAssignment(itemView,assignment)
             }
+
         }
     }
 
@@ -99,8 +96,30 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         }
     }
 
-    fun updateAssignment(itemView: View,assignment:AssignmentModel){
-        val dialog = AlertDialog.Builder(itemView.context)
+    private fun deleteAssignment(itemView: View,assignment: AssignmentModel){
+        val builder = AlertDialog.Builder(itemView.context)
+        builder.setTitle("Delete Assignment")
+        builder.setMessage("Are you sure you want to delete this assignment?")
+
+        builder.setPositiveButton("Delete"){ dialog, postive ->
+            val currentUser = auth.currentUser
+            val dbAssignment = FirebaseDatabase.getInstance().getReference("assignments").child(auth.currentUser?.uid!!)
+            val id = assignment.assignmentID
+
+            dbAssignment.child(id!!).removeValue()
+            info("Assignment $id deleted")
+            Toast.makeText(itemView.context,"Assignment Deleted", Toast.LENGTH_SHORT)
+        }
+        builder.setNegativeButton("Cancel"){dialog,negative ->
+            info("Cancelled deletion")
+            dialog.dismiss()
+        }
+        val alert = builder.create()
+        alert.show()
+        notifyDataSetChanged()
+    }
+    private fun updateAssignment(itemView: View,assignment:AssignmentModel){
+        val builder = AlertDialog.Builder(itemView.context)
         val inflater = LayoutInflater.from(itemView.context)
         val view = inflater.inflate(R.layout.activity_update_assignment,null)
 
@@ -109,15 +128,15 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         val updateWeightField = view.findViewById<EditText>(R.id.update_assignment_weight)
         val updateSubLinkField = view.findViewById<EditText>(R.id.update_assignment_submissionLink)
 
-        dialog.setTitle("Update Assignment")
+        builder.setTitle("Update Assignment")
         updateModuleField.setText(assignment.module)
         updateTitleField.setText(assignment.assignmentTitle)
         updateWeightField.setText(assignment.weight.toString())
         updateSubLinkField.setText(assignment.submissionLink)
 
-        dialog.setView(view)
-        dialog.setPositiveButton("Update"
-        ) { m, postive ->
+        builder.setView(view)
+        builder.setPositiveButton("Update"
+        ) { dialog, postive ->
 
             val currentUser = auth.currentUser
             val dbAssignment = FirebaseDatabase.getInstance().getReference("assignments").child(auth.currentUser?.uid!!)
@@ -125,7 +144,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
             var userID = currentUser?.uid!!
             val updatedModule = updateModuleField.text.toString()
             val updatedTitle = updateTitleField.text.toString()
-            var updatedWeight = Integer.parseInt(updateWeightField.text.toString())
+            val updatedWeight = Integer.parseInt(updateWeightField.text.toString())
             val updatedSubLink = updateSubLinkField.text.toString()
             val id = assignment.assignmentID
 
@@ -152,19 +171,15 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
 
             val assignment = AssignmentModel(id,updatedModule,updatedTitle,updatedWeight,updatedSubLink,assignment.userID)
             dbAssignment.child(id!!).setValue(assignment)
+            info("Updating Assignment:  ${assignment.assignmentID}")
         }
 
-        dialog.setNegativeButton("Cancel"
+        builder.setNegativeButton("Cancel"
         ) { dialog, negative ->
-            val dbAssign = FirebaseDatabase.getInstance().getReference("assignments")
+            info("Cancelling Update on Assignment: ${assignment.assignmentID}" )
+            dialog.dismiss()
         }
-        val alert = dialog.create()
+        val alert = builder.create()
         alert.show()
-    }
-
-    fun removeAssignment(position: Int){
-        assignmentList.removeAt(position)
-        //Notify any registered observers that the item previously located at position has been removed from the data set.
-        notifyItemRemoved(position)
     }
 }

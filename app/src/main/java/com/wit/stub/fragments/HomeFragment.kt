@@ -61,7 +61,7 @@ class HomeFragment : Fragment(), AnkoLogger {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter!!.filter.filter(newText)
-                return true
+                return false
             }
         })
     }

@@ -61,6 +61,8 @@ class EmailRegister : AppCompatActivity(), AnkoLogger {
 
                     //Setting name
                     userDb?.child("Name")?.setValue(registerName.text.toString())
+//                    userDb?.child("Email")?.setValue(registerEmailInput.text.toString())
+//                    userDb?.child("Password")?.setValue(registerPasswordInput.text.toString())
 
                     Toast.makeText(this, "Registration Completed Successfully",Toast.LENGTH_SHORT).show()
                     finish()
