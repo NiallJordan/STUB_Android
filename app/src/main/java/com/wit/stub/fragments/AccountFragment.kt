@@ -55,7 +55,6 @@ class AccountFragment : Fragment() {
 
         cuReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 nameText.text = snapshot.child("Name").value.toString()
                 emailText.text = currentUser?.email
             }

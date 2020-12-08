@@ -36,39 +36,26 @@
                 android:hint="@string/module"
                 />
 
-            <TextView
-                android:id="@+id/submissionLinkTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/subLink"
-                />
+<!--            <TextView-->
+<!--                android:id="@+id/submissionLinkTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/subLink"-->
+<!--                />-->
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-<!--            <TextView-->
-<!--                android:id="@+id/weightingTextView"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="@string/weighting"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                style="@style/TextAppearance.AppCompat.Large"/>-->
-<!--            <bUTTON-->
-            <ImageButton
-                android:id="@+id/delete_assignment_button"
+            <TextView
+                android:id="@+id/assignmentIDTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:hint="@string/assignment_id"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="21dp"
-                android:background="@color/white"
-                android:contentDescription="Delete"
-                android:padding="5dp"
-                android:src="@drawable/ic_baseline_delete_24" />
+                android:inputType="number"
+                style="@style/TextAppearance.AppCompat.Small"/>
         </RelativeLayout>
 
     </LinearLayout>

@@ -32,4 +32,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="prompt_name">Enter your name</string>
+    <string name="update">Update</string>
+    <string name="assignment_id">Assignment ID</string>
 </resources>

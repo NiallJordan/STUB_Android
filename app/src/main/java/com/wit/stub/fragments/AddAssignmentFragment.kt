@@ -12,7 +12,6 @@ import com.wit.stub.R
 import com.wit.stub.activities.MainActivity
 import com.wit.stub.models.AssignmentModel
 import kotlinx.android.synthetic.main.fragment_add_assignment.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class AddAssignmentFragment : Fragment() {
 
@@ -78,8 +77,8 @@ class AddAssignmentFragment : Fragment() {
         var submissionLink = submissionLinkField.text.toString()
 
         //Send data to database
-        if(module.isNotEmpty() && title.isNotEmpty() && submissionLink.isNotEmpty()) {
-            val assignment = AssignmentModel(module, title, weight, submissionLink, userID)
+        if(module.isNotEmpty() && title.isNotEmpty() && weight.toString().isNotEmpty() && submissionLink.isNotEmpty()) {
+            val assignment = AssignmentModel(id,module, title, weight, submissionLink, userID)
             assignmentReference?.child(id!!)?.setValue(assignment)
         }
     }
