@@ -45,7 +45,7 @@ class HomeFragment : Fragment(), AnkoLogger {
         searchView = view.findViewById(R.id.search_assignments)
 
         loadAssignments()
-        search()
+        this.search()
 
         //return the inflated view with the recycler populated
         return view

@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/cardImage"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="80dp"
             android:contentDescription="cardImage"
             android:src="@drawable/ic_assignment" />
@@ -47,15 +47,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageButton
-                android:id="@+id/delete_assignment_button"
+                android:id="@+id/update_assignment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_toStartOf="@id/delete_assignment_button"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
                 android:background="@color/white"
-                android:contentDescription="Delete"
-                android:padding="5dp"
+                android:contentDescription="@string/update"
+                android:src="@drawable/ic_update" />
+            <ImageButton
+                android:id="@+id/delete_assignment_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:contentDescription="@string/delete"
+                android:padding="2dp"
                 android:src="@drawable/ic_baseline_delete_24" />
         </RelativeLayout>
     </LinearLayout>

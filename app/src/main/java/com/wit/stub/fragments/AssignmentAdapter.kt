@@ -2,6 +2,7 @@ package com.wit.stub.fragments
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.wit.stub.R
+import com.wit.stub.activities.ViewAssignmentInfoActivity
 import com.wit.stub.models.AssignmentModel
 import kotlinx.android.synthetic.main.fragment_add_assignment.*
 import kotlinx.android.synthetic.main.fragment_cardview.view.*
@@ -29,14 +31,24 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
     private var assignmentReference: DatabaseReference? =null
     private lateinit var assignment:AssignmentModel
 
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var module: TextView = itemView.moduleTextView
         var title: TextView = itemView.assignTitleTextView
-        //var submissionLink: TextView = itemView.submissionLinkTextView
+
 
         init{
             assignmentFilterList = assignmentList
             itemView.setOnClickListener() {
+                assignment = assignmentList[adapterPosition]
+                info("Switching to ${assignment.assignmentID} view")
+                val intent = Intent(itemView.context,ViewAssignmentInfoActivity::class.java)
+                intent.putExtra("assignmentID",assignment.assignmentID )
+                itemView.context.startActivity(intent)
+
+            }
+            var updateButton = itemView.update_assignment_button
+            updateButton.setOnClickListener{
                 assignment = assignmentList[adapterPosition]
                 updateAssignment(itemView, assignment)
             }
@@ -76,6 +88,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
             //checks if text is typed in search view
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val search = constraint.toString()
+                //If search is empty filterList = assignmentList
                 assignmentFilterList = if(search.isEmpty()){
                     assignmentList
                 }else{
@@ -123,7 +136,7 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         notifyDataSetChanged()
     }
 
-     fun updateAssignment(itemView: View,assignment:AssignmentModel){
+    private fun updateAssignment(itemView: View,assignment:AssignmentModel){
         val builder = AlertDialog.Builder(itemView.context)
         val inflater = LayoutInflater.from(itemView.context)
         val view = inflater.inflate(R.layout.activity_update_assignment,null)
