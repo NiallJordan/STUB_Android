@@ -1,11 +1,10 @@
 package com.wit.stub.fragments
 
-import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +13,9 @@ import com.wit.stub.R
 import com.wit.stub.models.AssignmentModel
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.SearchView
+import kotlinx.android.synthetic.main.fragment_add_assignment.*
+import kotlinx.android.synthetic.main.fragment_add_assignment.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment(), AnkoLogger {
 
@@ -51,8 +53,10 @@ class HomeFragment : Fragment(), AnkoLogger {
         return view
     }
 
+    //Search function using the adapter filter for the recycler view
     private fun search(){
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            //On submit filter using the string from the field
             override fun onQueryTextSubmit(query: String?): Boolean {
                 adapter!!.filter.filter(query)
                 return false

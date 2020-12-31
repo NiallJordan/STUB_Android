@@ -23,22 +23,26 @@ import org.jetbrains.anko.info
 
 class LoginScreen : AppCompatActivity(), AnkoLogger {
    // lateinit var mGoogleSignInClient: GoogleSignInClient
-   // val Req_Code: Int = 123
     private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
+        auth = Firebase.auth
 
+
+        //Google Sign-In components
 //        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //                .requestIdToken(getString(R.string.default_web_client_id))
 //                .requestEmail()
 //                .build()
 //        mGoogleSignInClient= GoogleSignIn.getClient(this, gso)
 //
-        auth = Firebase.auth
-
+//        SignInGoogle.setOnClickListener{view:View->
+//            signInGoogle()
+//            finish()
+//        }
 
         Signin.setOnClickListener { view: View ->
             val intent = Intent(this, EmailLogin::class.java)
@@ -46,13 +50,29 @@ class LoginScreen : AppCompatActivity(), AnkoLogger {
             finish()
         }
 
-//        SignInGoogle.setOnClickListener{view:View->
-//            signInGoogle()
-//            finish()
-//        }
+
+
     }
 
+    //Update Ui if a user is logged in
+    private fun updateUI(user: FirebaseUser?) {
+        if(user != null){
+            if (user != null) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }else{
+                Toast.makeText(baseContext,"Login Failed.",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
+    }
+
+    //================== Google ==================\\
 //    // signInGoogle() function
 //    private fun signInGoogle() {
 //        val signInIntent: Intent = mGoogleSignInClient.signInIntent
@@ -93,23 +113,5 @@ class LoginScreen : AppCompatActivity(), AnkoLogger {
 //                    }
 //                }
 //    }
-
-    private fun updateUI(user: FirebaseUser?) {
-        if(user != null){
-            if (user != null) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }else{
-                Toast.makeText(baseContext,"Login Failed.",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
-
 
 }

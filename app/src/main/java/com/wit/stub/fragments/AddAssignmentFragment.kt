@@ -36,6 +36,7 @@ class AddAssignmentFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View= inflater.inflate(R.layout.fragment_add_assignment, container, false)
         val submit: View = view.findViewById(R.id.submitButton)
+        //On submit switch back to teh main activity
         submit.setOnClickListener {
             addNewAssignment()
             val intent = Intent(activity, MainActivity::class.java)
@@ -45,7 +46,11 @@ class AddAssignmentFragment : Fragment() {
     }
 
 
+    /**
+     * Private function addNewAssignment for adding a new assignment to the Realtime Db.
+     */
     private fun addNewAssignment() {
+        //Validation on the fields
         if(moduleField.text.toString().isEmpty()){
             moduleField.error = "Enter a module"
             moduleField.requestFocus()
@@ -64,17 +69,19 @@ class AddAssignmentFragment : Fragment() {
             submissionLinkField.error = "Enter a Submission Link"
             submissionLinkField.requestFocus()
         }
-        // User
+
+        // Init User
         val currentUser = auth.currentUser
         val id = assignmentReference?.push()?.key
 
+        //set values to the field
         val userID = currentUser?.uid!!
         val module = moduleField.text.toString()
         val title = assignmentTitleField.text.toString()
         val weight = Integer.parseInt(weightingField.text.toString())
         val submissionLink = submissionLinkField.text.toString()
 
-        //Send data to database
+        //Send data to database using reference
         if(module.isNotEmpty() && title.isNotEmpty() && weight.toString().isNotEmpty() && submissionLink.isNotEmpty()) {
             val assignment = AssignmentModel(id,module, title, weight, submissionLink, userID)
             assignmentReference?.child(id!!)?.setValue(assignment)

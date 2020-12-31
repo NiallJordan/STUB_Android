@@ -36,4 +36,5 @@
     <string name="logout">Logout</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="deleteAccount">Delete Account</string>
 </resources>

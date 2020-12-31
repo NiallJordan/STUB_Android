@@ -32,6 +32,10 @@ class EmailRegister : AppCompatActivity(), AnkoLogger {
         createUser()
     }
 
+    /**
+     * Private function createUser(), when register button is clicked take entries in field
+     * and create a new user with the entries.
+     */
     private fun createUser() {
         registerButton.setOnClickListener{
 

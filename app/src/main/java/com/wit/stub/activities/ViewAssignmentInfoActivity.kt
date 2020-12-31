@@ -27,9 +27,10 @@ class ViewAssignmentInfoActivity : AppCompatActivity(), AnkoLogger {
         db = FirebaseDatabase.getInstance()
         assignmentReference = db?.reference!!.child("assignments").child(auth.currentUser?.uid!!)
 
+        //Set an action bar at the top of the activity
         val actionBar = supportActionBar
         actionBar!!.title = "View Assignment"
-
+        //Navigate to parent
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val assignID =intent.getStringExtra("assignmentID").toString()
@@ -44,6 +45,10 @@ class ViewAssignmentInfoActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Function for loading the individual assignment information
+     * using a value event listener.
+     */
     private fun loadAssignment(){
         assignment?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

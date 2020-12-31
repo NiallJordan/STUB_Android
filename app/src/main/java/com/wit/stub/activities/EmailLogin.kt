@@ -86,6 +86,7 @@ class EmailLogin : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+        //Verification by email for new users
 //            if (currentUser.isEmailVerified)
 //                startActivity(Intent(this, MainActivity::class.java))
 //                finish()
