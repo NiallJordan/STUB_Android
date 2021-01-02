@@ -11,7 +11,7 @@ import com.google.firebase.ktx.Firebase
 import com.wit.stub.R
 import com.wit.stub.activities.LoginScreen
 
-
+//Unused
 class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,5 +1,6 @@
 package com.wit.stub.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
@@ -11,6 +12,9 @@ import com.wit.stub.R
 import kotlinx.android.synthetic.main.activity_view_assignment_info.*
 import org.jetbrains.anko.AnkoLogger
 
+/**
+ * A simple Activity to view an assignment's info.
+ */
 class ViewAssignmentInfoActivity : AppCompatActivity(), AnkoLogger {
 
     private lateinit var auth : FirebaseAuth
@@ -38,8 +42,9 @@ class ViewAssignmentInfoActivity : AppCompatActivity(), AnkoLogger {
 
         loadAssignment()
 
+        //Double click a sublink to navigate to it in browser
         viewSubLinkText.setOnClickListener{
-            val uri = Uri.parse("https://$url") // missing 'https://' will cause crashed
+            val uri = Uri.parse("https://$url")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
@@ -51,6 +56,7 @@ class ViewAssignmentInfoActivity : AppCompatActivity(), AnkoLogger {
      */
     private fun loadAssignment(){
         assignment?.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot: DataSnapshot) {
                 //Get values from the database
                 viewModuleText.text = snapshot.child("module").value.toString()
@@ -59,7 +65,6 @@ class ViewAssignmentInfoActivity : AppCompatActivity(), AnkoLogger {
                 viewWeightLabel.paintFlags = viewWeightLabel.paintFlags or Paint.UNDERLINE_TEXT_FLAG
                 viewModuleText.paintFlags = viewModuleText.paintFlags or Paint.UNDERLINE_TEXT_FLAG
                 viewSubLinkLabel.paintFlags = viewSubLinkLabel.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
 
                 viewSubLinkText.text = snapshot.child("submissionLink").value.toString()
                 url = viewSubLinkText.text.toString()

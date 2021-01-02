@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.activity_email_login.*
 
 /**
  * Login Activity for Email Login.
+ *
  */
 class EmailLogin : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,25 +41,34 @@ class EmailLogin : AppCompatActivity() {
 
     }
 
+    /**
+     * Function for logging in a user, once fields are verified and the user
+     * is checked against firebase, the user is then logged in. Else it returns
+     * a toast to the user.
+     */
     private fun loginUser(){
-        if(emailInput.text.toString().isEmpty()){
-            emailInput.error = "Please enter email"
-            emailInput.requestFocus()
-            return
-        }
+//        //Ensure email field is not empty
+//        if(emailInput.text.toString().isEmpty()){
+//            emailInput.error = "Please enter email"
+//            emailInput.requestFocus()
+//            return
+//        }
 
+        //Ensure password field is not empty
         if(passwordInput.text.toString().isEmpty()){
             passwordInput.error = "Please enter password"
             passwordInput.requestFocus()
             return
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailInput.text.toString()).matches()){
+        //Check if Regex of email is correct
+        if(!Patterns.EMAIL_ADDRESS.matcher(emailInput.text.toString()).matches() && emailInput.text.toString().isEmpty()){
             emailInput.error = "Please enter a valid email"
             emailInput.requestFocus()
             return
         }
 
+        //Sign in with firebase authentication email and password method.
         auth.signInWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -68,7 +77,7 @@ class EmailLogin : AppCompatActivity() {
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Toast.makeText(baseContext, "Authentication failed. Email or password is wrong.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Authentication failed. Email or password is wrong.", Toast.LENGTH_LONG).show()
                     updateUI(null)
                 }
             }

@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_account.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
+/**
+ * Register Activity for email and password.
+ */
 class EmailRegister : AppCompatActivity(), AnkoLogger {
 
     private lateinit var auth : FirebaseAuth
@@ -25,10 +28,12 @@ class EmailRegister : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_email_register)
 
+        //Get firebase login, and dbs
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         dbReference = db?.reference!!.child("account")
 
+        //call private function createUser()
         createUser()
     }
 
@@ -39,6 +44,7 @@ class EmailRegister : AppCompatActivity(), AnkoLogger {
     private fun createUser() {
         registerButton.setOnClickListener{
 
+            //Validation for fields
             if (registerName.text.toString().isEmpty()) {
                 registerName.error = "Please enter name"
                 registerName.requestFocus()
@@ -57,13 +63,14 @@ class EmailRegister : AppCompatActivity(), AnkoLogger {
                 return@setOnClickListener
             }
 
+            //Create new user in firebase using email and password
             auth.createUserWithEmailAndPassword(registerEmailInput.text.toString(), registerPasswordInput.text.toString()
             ).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     val userDb = dbReference?.child((user?.uid!!))
 
-                    //Setting name
+                    //Store name
                     userDb?.child("Name")?.setValue(registerName.text.toString())
 //                    userDb?.child("Email")?.setValue(registerEmailInput.text.toString())
 //                    userDb?.child("Password")?.setValue(registerPasswordInput.text.toString())

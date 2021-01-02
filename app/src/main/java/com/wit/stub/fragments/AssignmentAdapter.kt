@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -23,6 +24,11 @@ import org.jetbrains.anko.info
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * A simple [Adapter] class.
+ * Holds the methods for filtering, deleting and updating assignments.
+ *
+ */
 class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList<AssignmentModel>): RecyclerView.Adapter<AssignmentAdapter.ViewHolder>(), Filterable, AnkoLogger{
 
     //Array list for filtered results
@@ -148,35 +154,6 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         //Updates the recycle view
         notifyDataSetChanged()
     }
-//
-//    /**
-//     * Private function deleteAllAssignment using an alert dialog to confirm deletion
-//     * of assignment from the database.
-//     */
-//    private fun deleteAllAssignment(itemView: View,assignment: AssignmentModel){
-//        val builder = AlertDialog.Builder(itemView.context)
-//        builder.setTitle("Delete All Assignment")
-//        builder.setMessage("Are you sure you want to delete all assignments?")
-//
-//        //When pressed remove from view and delete from db.
-//        builder.setPositiveButton("Delete"){ dialog, postive ->
-//            val dbAssignment = FirebaseDatabase.getInstance().getReference("assignments").child(auth.currentUser?.uid!!)
-//            val id = assignment.assignmentID
-//
-//            dbAssignment.removeValue()
-//            info("Assignments deleted")
-//            Toast.makeText(itemView.context,"All assignments Deleted", Toast.LENGTH_SHORT)
-//        }
-//        builder.setNegativeButton("Cancel"){dialog,negative ->
-//            info("Cancelled deletion")
-//            dialog.dismiss()
-//        }
-//        val alert = builder.create()
-//        alert.show()
-//
-//        //Updates the recycle view
-//        notifyDataSetChanged()
-//    }
 
     /**
      * UpdateAssignment using an alert dialog
@@ -256,5 +233,36 @@ class AssignmentAdapter(var context: HomeFragment, var assignmentList: ArrayList
         val alert = builder.create()
         alert.show()
     }
+
+
+//    /**
+//     * Private function deleteAllAssignment using an alert dialog to confirm deletion
+//     * of assignment from the database.
+//     */
+//    private fun deleteAllAssignment(itemView: View,assignment: AssignmentModel){
+//        val builder = AlertDialog.Builder(itemView.context)
+//        builder.setTitle("Delete All Assignment")
+//        builder.setMessage("Are you sure you want to delete all assignments?")
+//
+//        //When pressed remove from view and delete from db.
+//        builder.setPositiveButton("Delete"){ dialog, postive ->
+//            val dbAssignment = FirebaseDatabase.getInstance().getReference("assignments").child(auth.currentUser?.uid!!)
+//            val id = assignment.assignmentID
+//
+//            dbAssignment.removeValue()
+//            info("Assignments deleted")
+//            Toast.makeText(itemView.context,"All assignments Deleted", Toast.LENGTH_SHORT)
+//        }
+//        builder.setNegativeButton("Cancel"){dialog,negative ->
+//            info("Cancelled deletion")
+//            dialog.dismiss()
+//        }
+//        val alert = builder.create()
+//        alert.show()
+//
+//        //Updates the recycle view
+//        notifyDataSetChanged()
+//    }
+
 }
 

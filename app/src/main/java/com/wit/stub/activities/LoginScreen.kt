@@ -21,8 +21,11 @@ import kotlinx.android.synthetic.main.activity_login_screen.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
+/**
+ * Login Activity
+ */
 class LoginScreen : AppCompatActivity(), AnkoLogger {
-   // lateinit var mGoogleSignInClient: GoogleSignInClient
+    // lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
 
@@ -44,6 +47,7 @@ class LoginScreen : AppCompatActivity(), AnkoLogger {
 //            finish()
 //        }
 
+        //Go back to email login activity
         Signin.setOnClickListener { view: View ->
             val intent = Intent(this, EmailLogin::class.java)
             startActivity(intent)
@@ -54,24 +58,24 @@ class LoginScreen : AppCompatActivity(), AnkoLogger {
 
     }
 
-    //Update Ui if a user is logged in
-    private fun updateUI(user: FirebaseUser?) {
-        if(user != null){
-            if (user != null) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }else{
-                Toast.makeText(baseContext,"Login Failed.",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
 
+    /**
+     * Update Ui if a user is logged in
+     */
+    private fun updateUI(user: FirebaseUser?) {
+        //if user is logged in start main activity
+        if(user != null){
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }else{
+            Toast.makeText(baseContext,"Login Failed.",Toast.LENGTH_SHORT).show()
+        }
+    }
     //================== Google ==================\\
 //    // signInGoogle() function
 //    private fun signInGoogle() {

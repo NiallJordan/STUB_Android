@@ -24,9 +24,8 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [AccountFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A simple [Fragment] class.
+ * Use the loadAccountInfo method to get the logged in account info from firebase.
  */
 class AccountFragment : Fragment(), AnkoLogger {
     private lateinit var auth : FirebaseAuth

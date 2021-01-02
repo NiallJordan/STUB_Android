@@ -13,6 +13,10 @@ import com.wit.stub.activities.MainActivity
 import com.wit.stub.models.AssignmentModel
 import kotlinx.android.synthetic.main.fragment_add_assignment.*
 
+
+/**
+ * A simple [Fragment] class for adding an assignment to the app.
+ */
 class AddAssignmentFragment : Fragment() {
 
     private lateinit var auth : FirebaseAuth
@@ -36,6 +40,7 @@ class AddAssignmentFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View= inflater.inflate(R.layout.fragment_add_assignment, container, false)
         val submit: View = view.findViewById(R.id.submitButton)
+
         //On submit switch back to teh main activity
         submit.setOnClickListener {
             addNewAssignment()
